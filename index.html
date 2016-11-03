@@ -2,20 +2,59 @@
 
 <head>
 
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+	<script type="text/javascript" src="event.js"></script>
+	<script type="text/javascript" src="util/util.js"></script>
+	<script type="text/javascript" src="gesture_recognizer.js"></script>
+	<script type="text/javascript" src="model/point.js"></script>
+	<script type="text/javascript" src="model/line.js"></script>
+	<script type="text/javascript" src="model/polygon.js"></script>
+	<script type="text/javascript" src="model/rect.js"></script>
+	<script type="text/javascript" src="document.js"></script>
+	<script type="text/javascript" src="tools/rect_tool.js"></script>
+	<script type="text/javascript" src="tools/line_tool.js"></script>
+	<script type="text/javascript" src="tools/selection_tool.js"></script>
 	<script type="text/javascript" src="editor.js"></script>
 
 </head>
 
 <body>
 
+	<div>
+		<span><a href="#" id="selection-tool">Select</a></span>
+		<span><a href="#" id="line-tool">Line</a></span>
+		<span><a href="#" id="rect-tool">Rect</a></span>
+		<span><a href="#" id="bezier-tool">Bezier</a></span>
+	</div>
 	<canvas width="600" height="600"></canvas>
  
 	<script>
 		(function() {
 			editor = new Editor();
-			editor.addPolygon([[10, 10], [100, 10], [100, 50], [10, 50], [10, 10]]);
-			editor.addPolygon([[80, 200], [100, 210], [100, 250], [80, 200]]);
-			editor.draw();
+			// editor.addGeometry([[10, 10], [100, 10], [100, 50], [10, 50], [10, 10]]);
+			// editor.addGeometry([[80, 200], [100, 210], [100, 250], [80, 200]]);
+			// editor.draw();
+			// editor.activateTool("LineTool");
+
+			$("#selection-tool").click(function() {
+				console.log("activating selection tool");
+				editor.activateTool("SelectionTool");
+			});
+
+			$("#line-tool").click(function() {
+				console.log("activating line tool");
+				editor.activateTool("LineTool");
+			});
+
+			$("#rect-tool").click(function() {
+				console.log("activating rect tool");
+				editor.activateTool("RectTool");
+			});
+
+			$("#bezier-tool").click(function() {
+				console.log("activating bezier tool");
+			});
 
 		})();
 
