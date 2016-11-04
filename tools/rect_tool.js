@@ -5,12 +5,15 @@ RectTool = function(document) {
 	this.firstPoint = null;
 }
 
-RectTool.prototype.onMouseMove = function(point) {
+RectTool.prototype.onMouseDrag = function(args) {
+}
+
+RectTool.prototype.onMouseMove = function(args) {
 	if (!this.firstPoint)
 		return;
 
-	console.log("mouse moving " + point.x + ", " + point.y);
-	this.document.addEditionGeometry(new Rect(this.firstPoint, point));
+	console.log("mouse moving " + args.point.x + ", " + args.point.y);
+	this.document.addEditionGeometry(new Rect(this.firstPoint, args.point));
 }
 
 RectTool.prototype.onMouseLeftDown = function(point) {

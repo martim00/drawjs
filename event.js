@@ -15,8 +15,8 @@ Event.prototype.removeListener = function(listener) {
     this.listeners.splice(index, 1);
 }
 
-Event.prototype.notify = function(arg) {
+Event.prototype.notify = function(args) {
 	this.listeners.forEach(function(listener) {
-		listener(arg);
+		listener(args);
 	}.bind(this));
 }

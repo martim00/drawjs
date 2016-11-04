@@ -9,3 +9,11 @@ Point.prototype.distance = function(point) {
 	var dy = this.y - point.y;
 	return Math.sqrt(dx * dx + dy * dy);
 }
+
+Point.prototype.sum = function(point) {
+	return new Point(this.x + point.x, this.y + point.y);
+}
+
+Point.prototype.minus = function(point) {
+	return new Point(this.x - point.x, this.y - point.y);
+}

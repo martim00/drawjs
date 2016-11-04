@@ -24,7 +24,17 @@ Line.prototype.getStrokeStyle = function() {
 	return this.strokeStyle;
 }
 
-Line.prototype.getRect = function() {
-	return new Line(this.p1, this.p2, 'red');
+Line.prototype.getPoints = function() {
+	return [this.p1, this.p2];
+}
+
+Line.prototype.getBoundingRect = function() {
+	var leftX = this.p1.x < this.p2.x ? this.p1.x : this.p2.x;
+	var leftY = this.p1.y < this.p2.y ? this.p1.y : this.p2.y;
+
+	var rightX = this.p1.x > this.p2.x ? this.p1.x : this.p2.x;
+	var rightY = this.p1.y > this.p2.y ? this.p1.y : this.p2.y;
+
+	return new Rect(new Point(leftX - 5, leftY - 5), new Point(rightX + 5, rightY + 5));
 }
 

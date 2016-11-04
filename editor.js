@@ -25,9 +25,14 @@ Editor.prototype.activateTool = function(toolname) {
 	this.currentTool.activate();
 }
 
-Editor.prototype.onMouseMove = function(point) {
+Editor.prototype.onMouseDrag = function(args) {
 	if (this.currentTool)
-		this.currentTool.onMouseMove(point);
+		this.currentTool.onMouseDrag(args);
+}
+
+Editor.prototype.onMouseMove = function(args) {
+	if (this.currentTool)
+		this.currentTool.onMouseMove(args);
 }
 
 Editor.prototype.onMouseLeftDown = function(point) {
@@ -65,6 +70,7 @@ Editor.prototype.getMousePos = function(evt) {
 Editor.prototype.bindEvents = function() {
 
 	this.gestureRecognizer.onMouseMove.addListener(this.onMouseMove.bind(this));
+	this.gestureRecognizer.onMouseDrag.addListener(this.onMouseDrag.bind(this));
 	this.gestureRecognizer.onMouseLeftDown.addListener(this.onMouseLeftDown.bind(this));
 	this.gestureRecognizer.onMouseRightDown.addListener(this.onMouseRightDown.bind(this));
 	this.gestureRecognizer.onMouseRelease.addListener(this.onMouseRelease.bind(this));
@@ -115,9 +121,24 @@ Editor.prototype.drawGeometries = function(geometries) {
 
   	geometries.forEach(function(geometry) {
 
-  		context.strokeStyle = geometry.getStrokeStyle();
+  		if (geometry.strokeStyle)
+  			context.strokeStyle = geometry.getStrokeStyle();
 
-  		if (geometry instanceof Line) {
+	  	context.beginPath();
+  		for (var i = 0; i < geometry.getPoints().length; i++) {
+
+  			var point = geometry.getPoints()[i];
+
+  			if (i == 0) {
+  				context.moveTo(point.x, point.y);
+  			}
+  			else {
+  				context.lineTo(point.x, point.y);
+  			}
+  		}
+  		context.stroke();
+
+  		/*if (geometry instanceof Line) {
 	  		context.beginPath();
 	  		context.moveTo(geometry.p1.x, geometry.p1.y);
 	  		context.lineTo(geometry.p2.x, geometry.p2.y);
@@ -148,7 +169,7 @@ Editor.prototype.drawGeometries = function(geometries) {
 	  			}
 	  		}
 	  		context.stroke();
-  		}
+  		}*/
 
   	});
 }
@@ -159,8 +180,10 @@ Editor.prototype.invalidate = function() {
 
 	context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-  	context.strokeStyle = "red";
+  	context.strokeStyle = "black";
 
   	this.drawGeometries(this.document.getGeometries());
+
+  	context.strokeStyle = "red";
   	this.drawGeometries(this.document.getEditionGeometries());
 }
