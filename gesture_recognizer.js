@@ -6,8 +6,13 @@ GestureRecognizer = function() {
 	this.onMouseRightDown = new Event();
 	this.onMouseRelease = new Event();
 	this.onMouseDrag = new Event();
+	this.onMouseDblClick = new Event();
 
 	this.lastClick = null;
+}
+
+GestureRecognizer.prototype.handleMouseDblClick = function(mousePos) {
+	this.onMouseDblClick.notify(new Point(mousePos.x, mousePos.y));
 }
 
 GestureRecognizer.prototype.handleMouseMove = function(mousePos) {

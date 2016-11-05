@@ -5,6 +5,7 @@ LineTool = function(document) {
 	this.lastPoint = null;
 	this.currentGeometry = null;
 }
+LineTool.inherits(Tool);
 
 LineTool.prototype.onMouseDrag = function(args) {
 }
@@ -13,7 +14,6 @@ LineTool.prototype.onMouseMove = function(args) {
 	if (!this.lastPoint)
 		return;
 
-	console.log("mouse moving> " + args.point.x + ", " + args.point.y);
 	this.document.addEditionGeometry(new Line(this.lastPoint, args.point));
 }
 
@@ -35,15 +35,25 @@ LineTool.prototype.onMouseLeftDown = function(point) {
 }
 
 LineTool.prototype.onMouseRightDown = function(point) {
-	console.log("mouse right down " + point.x + ", " + point.y);
-	// if (this.lastPoint)
-	// 	this.document.addGeometry([[this.lastPoint.x, this.lastPoint.y], [point.x, point.y]]);
+	if (!this.lastPoint)
+		return false;
+
 	this.document.clearEditionGeometries();
 	this.lastPoint = null;
+	return true;
 }
 
 LineTool.prototype.onMouseRelease = function(point) {
 	console.log("mouse release " + point.x + ", " + point.y);
+}
+
+LineTool.prototype.onMouseDblClick = function(point) {
+	if (this.currentGeometry) {
+		this.currentGeometry.closePolygon();
+		this.lastPoint = null;
+		this.currentGeometry = null;
+		this.document.clearEditionGeometries();
+	}
 }
 
 LineTool.prototype.activate = function() {

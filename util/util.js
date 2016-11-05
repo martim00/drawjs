@@ -1,7 +1,14 @@
 
+function removeFromArray(array, element) {
+	var index = array.indexOf(element);
+	if (index == -1) 
+		throw new Error("cant remove element");
+
+    array.splice(index, 1);
+}
 
 function floatEquals(f1, f2) {
-	return f1 - f2 < 0.01;
+	return f1 - f2 < 0.1;
 }
 
 

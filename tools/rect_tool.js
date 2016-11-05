@@ -5,6 +5,8 @@ RectTool = function(document) {
 	this.firstPoint = null;
 }
 
+RectTool.inherits(Tool);
+
 RectTool.prototype.onMouseDrag = function(args) {
 }
 
@@ -33,6 +35,7 @@ RectTool.prototype.onMouseRightDown = function(point) {
 	// 	this.document.addGeometry([[this.firstPoint.x, this.firstPoint.y], [point.x, point.y]]);
 	this.document.clearEditionGeometries();
 	this.firstPoint = null;
+	return false;
 }
 
 RectTool.prototype.onMouseRelease = function(point) {

@@ -52,6 +52,26 @@ Polyline.prototype.getBoundingRect = function() {
 	return new Rect(new Point(leftX, leftY), new Point(rightX, rightY), 'blue');
 }
 
+Polyline.prototype.moveBy = function(vector) {
+	var moved = new Polyline();
 
+	this.lines.forEach(function(line) {
+		moved.addLine(line.moveBy(vector));
+	});
+
+	return moved;
+}
+
+Polyline.prototype.getLastPoint = function() {
+	return this.lines[this.lines.length-1].p2;
+}
+
+Polyline.prototype.getFirstPoint = function() {
+	return this.lines[0].p1;
+}
+
+Polyline.prototype.closePolygon = function() {
+	this.addLine(new Line(this.getLastPoint(), this.getFirstPoint()));
+}
 
 

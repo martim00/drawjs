@@ -38,3 +38,6 @@ Line.prototype.getBoundingRect = function() {
 	return new Rect(new Point(leftX - 5, leftY - 5), new Point(rightX + 5, rightY + 5));
 }
 
+Line.prototype.moveBy = function(vector) {
+	return new Line(this.p1.sum(vector), this.p2.sum(vector), this.strokeStyle);
+}

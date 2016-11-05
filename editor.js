@@ -5,59 +5,18 @@ Editor = function() {
 	this.gestureRecognizer = new GestureRecognizer();
 
 	this.canvas = document.querySelector("canvas");
+
+	this.toolManager = new ToolManager();
+	this.toolManager.addTool("LineTool", new LineTool(this.document));
+	this.toolManager.addTool("RectTool", new RectTool(this.document));
+	this.toolManager.addTool("SelectionTool", new SelectionTool(this.document), true);
+
 	this.bindEvents();
-
-	this.tools = {
-		"LineTool": new LineTool(this.document),
-		"RectTool": new RectTool(this.document),
-		"SelectionTool": new SelectionTool(this.document)
-	}
-
-	this.currentTool = null;
 }
 
 Editor.prototype.activateTool = function(toolname) {
-	if (this.currentTool) {
-		this.currentTool.deactivate();
-	}
-
-	this.currentTool = this.tools[toolname];
-	this.currentTool.activate();
+	this.toolManager.activateTool(toolname);
 }
-
-Editor.prototype.onMouseDrag = function(args) {
-	if (this.currentTool)
-		this.currentTool.onMouseDrag(args);
-}
-
-Editor.prototype.onMouseMove = function(args) {
-	if (this.currentTool)
-		this.currentTool.onMouseMove(args);
-}
-
-Editor.prototype.onMouseLeftDown = function(point) {
-	if (this.currentTool)
-		this.currentTool.onMouseLeftDown(point);
-}
-
-Editor.prototype.onMouseRightDown = function(point) {
-	if (this.currentTool)
-		this.currentTool.onMouseRightDown(point);
-}
-
-Editor.prototype.onMouseRelease = function(point) {
-	if (this.currentTool)
-		this.currentTool.onMouseRelease(point);
-}
-
-/*Editor.prototype.unbindTool = function() {
-
-	this.gestureRecognizer.onMouseMove.removeListener(this.currentTool.onMouseMove);
-	this.gestureRecognizer.onMouseLeftDown.removeListener(this.currentTool.onMouseLeftDown);
-	this.gestureRecognizer.onMouseRightDown.removeListener(this.currentTool.onMouseRightDown);
-	this.gestureRecognizer.onMouseRelease.removeListener(this.currentTool.onMouseRelease);
-
-}*/
 
 Editor.prototype.getMousePos = function(evt) {
     var rect = this.canvas.getBoundingClientRect();
@@ -69,11 +28,13 @@ Editor.prototype.getMousePos = function(evt) {
 
 Editor.prototype.bindEvents = function() {
 
-	this.gestureRecognizer.onMouseMove.addListener(this.onMouseMove.bind(this));
-	this.gestureRecognizer.onMouseDrag.addListener(this.onMouseDrag.bind(this));
-	this.gestureRecognizer.onMouseLeftDown.addListener(this.onMouseLeftDown.bind(this));
-	this.gestureRecognizer.onMouseRightDown.addListener(this.onMouseRightDown.bind(this));
-	this.gestureRecognizer.onMouseRelease.addListener(this.onMouseRelease.bind(this));
+	this.gestureRecognizer.onMouseMove.addListener(this.toolManager.onMouseMove.bind(this.toolManager));
+	this.gestureRecognizer.onMouseDrag.addListener(this.toolManager.onMouseDrag.bind(this.toolManager));
+	this.gestureRecognizer.onMouseLeftDown.addListener(this.toolManager.onMouseLeftDown.bind(this.toolManager));
+	this.gestureRecognizer.onMouseRightDown.addListener(this.toolManager.onMouseRightDown.bind(this.toolManager));
+	this.gestureRecognizer.onMouseRelease.addListener(this.toolManager.onMouseRelease.bind(this.toolManager));
+	this.gestureRecognizer.onMouseDblClick.addListener(this.toolManager.onMouseDblClick.bind(this.toolManager));
+
 
 	this.document.invalidate.addListener(function() {
 		this.invalidate();
@@ -90,8 +51,8 @@ Editor.prototype.bindEvents = function() {
 
 	this.canvas.addEventListener('mousedown', function(evt) {
         var mousePos = this.getMousePos(evt);
-        // var message = 'Mouse clicked at: ' + mousePos.x + ',' + mousePos.y;
-        // console.log(message);
+        var message = 'Mouse clicked at: ' + mousePos.x + ',' + mousePos.y;
+        console.log(message);
         console.log(evt.button);
         this.gestureRecognizer.handleMouseDown(mousePos, evt.button === 2);
 
@@ -105,14 +66,18 @@ Editor.prototype.bindEvents = function() {
 
     }.bind(this), false);
 
+    this.canvas.addEventListener('dblclick', function(evt) {
+        var mousePos = this.getMousePos(evt);
+        var message = 'Mouse dblclick at: ' + mousePos.x + ',' + mousePos.y;
+        console.log(message);
+        this.gestureRecognizer.handleMouseDblClick(mousePos);
+
+    }.bind(this), false);
+
     this.canvas.oncontextmenu = function (evt) {
     	evt.preventDefault();
 	};
 
-}
-
-Editor.prototype.addGeometry = function(geometry) {
-	this.document.addGeometry(geometry);
 }
 
 Editor.prototype.drawGeometries = function(geometries) {

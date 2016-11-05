@@ -23,5 +23,5 @@ Rect.prototype.getBoundingRect = function() {
 }
 
 Rect.prototype.moveBy = function(vector) {
-	return new Rect(this.p1.sum(vector), this.p2.sum(vector), 'red');
+	return new Rect(this.p1.sum(vector), this.p2.sum(vector), this.strokeStyle);
 }
