@@ -25,3 +25,19 @@ Rect.prototype.getBoundingRect = function() {
 Rect.prototype.moveBy = function(vector) {
 	return new Rect(this.p1.sum(vector), this.p2.sum(vector), this.strokeStyle);
 }
+
+Rect.prototype.getCenter = function() {
+	var x = this.p1.x + this.p2.x / 2;
+	var y = this.p1.y + this.p2.y / 2;
+
+	return new Point(x, y);
+}
+
+Rect.prototype.rotateBy = function(vector) {
+	return new Rect(
+		this.p1.rotate(this.getCenter(), vector.getAngle(new Point(0, 0))),
+		this.p2.rotate(this.getCenter(), vector.getAngle(new Point(0, 0)))
+	);
+}
+
+

@@ -15,7 +15,7 @@ ToolManager.prototype.activateTool = function(toolName) {
 		this.currentTool.deactivate();
 	}
 
-	this.currentTool = this.tools[toolName];
+	this.currentTool = this.tools[toolName]();
 	this.currentTool.activate();
 }
 

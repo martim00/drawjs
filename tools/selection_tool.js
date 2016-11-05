@@ -31,17 +31,25 @@ SelectionTool.prototype.onMouseMove = function(args) {
 
 SelectionTool.prototype.onMouseLeftDown = function(point) {
 	var geometry = this.document.findGeometryAt(point);
-	if (geometry) {
-		console.log("found....");
-		var editionRect = geometry.getBoundingRect();
-		this.document.addEditionGeometry(editionRect);
+	if (!geometry) {
+		this.clearSelection();
+		return;
 	}
+
+	console.log("found....");
+	this.selectedGeo = geometry;
+	var editionRect = geometry.getBoundingRect();
+	this.document.addEditionGeometry(editionRect);
+}
+
+SelectionTool.prototype.clearSelection = function() {
+	this.selectedGeo = null;
+	this.document.clearEditionGeometries();
 }
 
 SelectionTool.prototype.onMouseRightDown = function(point) {
 	console.log("mouse right down " + point.x + ", " + point.y);
-	this.selectedGeo = null;
-	this.document.clearEditionGeometries();
+	this.clearSelection();
 }
 
 SelectionTool.prototype.onMouseRelease = function(point) {

@@ -7,9 +7,10 @@ Editor = function() {
 	this.canvas = document.querySelector("canvas");
 
 	this.toolManager = new ToolManager();
-	this.toolManager.addTool("LineTool", new LineTool(this.document));
-	this.toolManager.addTool("RectTool", new RectTool(this.document));
-	this.toolManager.addTool("SelectionTool", new SelectionTool(this.document), true);
+	this.toolManager.addTool("LineTool", function() { return new LineTool(this.document); }.bind(this));
+	this.toolManager.addTool("RectTool", function() { return new RectTool(this.document); }.bind(this));
+	this.toolManager.addTool("RotateTool", function() { return new RotateTool(this.document); }.bind(this));
+	this.toolManager.addTool("SelectionTool", function() { return new SelectionTool(this.document); }.bind(this), true);
 
 	this.bindEvents();
 }
