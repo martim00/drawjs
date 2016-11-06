@@ -1,7 +1,8 @@
-SelectionTool = function(document) {
+SelectionTool = function(document, editorsFactory) {
 	this.document = document;
 	this.movedGeo = null;
 	this.selectedGeo = null;
+	this.editorsFactory = editorsFactory;
 }
 
 SelectionTool.inherits(Tool);
@@ -45,6 +46,10 @@ SelectionTool.prototype.onMouseLeftDown = function(point) {
 
 SelectionTool.prototype.selectGeometry = function(geometry) {
 	this.selectedGeo = geometry;
+
+	//var editor = this.editorsFactory.build(this.selectedGeo);
+	//this.document.addEditionGeometry(editor.getEditionGeometry());
+
 	var editionRect = geometry.getBoundingRect();
 	this.document.addEditionGeometry(editionRect);
 }

@@ -7,8 +7,10 @@ RotateTool = function(document) {
 RotateTool.inherits(SelectionTool);
 
 RotateTool.prototype.onMouseDrag = function(args) {
-	var movementVector = args.endPoint.minus(args.beginPoint);
-	this.rotatedGeo = this.selectedGeo.rotateBy(movementVector);
+	var angle = this.selectedGeo.getCenter().getAngle(args.endPoint);
+	//var angle = args.endPoint.getAngle(this.selectedGeo.getCenter());
+	console.log(angle * 57.2958);
+	this.rotatedGeo = this.selectedGeo.rotateBy(angle);
 	this.document.addEditionGeometry(this.rotatedGeo);
 }
 

@@ -3,6 +3,7 @@
 Rect = function(p1, p2, strokeStyle) {
 	this.p1 = p1;
 	this.p2 = p2;
+	this.angle = 0;
 	this.strokeStyle = strokeStyle ? strokeStyle : 'black';
 }
 
@@ -11,7 +12,10 @@ Rect.prototype.containsPoint = function(point) {
 }
 
 Rect.prototype.getPoints = function() {
-	return [this.p1, new Point(this.p2.x, this.p1.y), this.p2, new Point(this.p1.x, this.p2.y), this.p1]
+	var center = this.getCenter();
+	return [this.p1.rotate(center, this.angle), 
+			new Point(this.p2.x, this.p1.y).rotate(center, this.angle), this.p2.rotate(center, this.angle), 
+			new Point(this.p1.x, this.p2.y).rotate(center, this.angle), this.p1.rotate(center, this.angle)]
 }
 
 Rect.prototype.getStrokeStyle = function() {
@@ -33,11 +37,12 @@ Rect.prototype.getCenter = function() {
 	return new Point(x, y);
 }
 
-Rect.prototype.rotateBy = function(vector) {
-	return new Rect(
-		this.p1.rotate(this.getCenter(), vector.getAngle(new Point(0, 0))),
-		this.p2.rotate(this.getCenter(), vector.getAngle(new Point(0, 0)))
-	);
+Rect.prototype.rotateBy = function(angle) {
+	this.angle = angle;
+	// return new Rect(
+	// 	this.p1.rotate(this.getCenter(), angle),
+	// 	this.p2.rotate(this.getCenter(), angle)
+	// );
 }
 
 

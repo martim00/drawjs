@@ -14,6 +14,8 @@
 	<script type="text/javascript" src="model/polygon.js"></script>
 	<script type="text/javascript" src="model/rect.js"></script>
 	<script type="text/javascript" src="document.js"></script>
+	<script type="text/javascript" src="editors/editor_factory.js"></script>
+	<script type="text/javascript" src="editors/rect_editor.js"></script>
 	<script type="text/javascript" src="tool_manager.js"></script>
 	<script type="text/javascript" src="tools/tool.js"></script>
 	<script type="text/javascript" src="tools/rect_tool.js"></script>
@@ -27,11 +29,11 @@
 <body>
 
 	<div>
-		<span><a href="#" id="selection-tool">Select</a></span>
-		<span><a href="#" id="line-tool">Line</a></span>
-		<span><a href="#" id="rect-tool">Rect</a></span>
+		<span><a href="#" id="selection-tool"><img src="icons/stock_draw_selection.png"></a></span>
+		<span><a href="#" id="line-tool"><img src="icons/stock_draw_polygon.png"></a></span>
+		<span><a href="#" id="rect-tool"><img width="24" height="24" src="icons/vector-path-square.svg"></a></span>
 		<span><a href="#" id="rotate-tool">Rotate</a></span>
-		<span><a href="#" id="bezier-tool">Bezier</a></span>
+		<span><a href="#" id="bezier-tool"><img src="icons/stock_draw_curve.png"></a></span>
 	</div>
 	<canvas width="600" height="600"></canvas>
  
