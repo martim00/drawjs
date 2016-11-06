@@ -17,13 +17,14 @@ Polyline.prototype.getPoints = function() {
 }
 
 Polyline.prototype.containsPoint = function(point) {
-	for (var i = 0; i < this.lines.length; i++) {
+	return this.getBoundingRect().containsPoint(point);
+	/*for (var i = 0; i < this.lines.length; i++) {
 		if (this.lines[i].containsPoint(point)) {
 			return true;
 		}
 	}
 
-	return false;
+	return false;*/
 }
 
 Polyline.prototype.getBoundingRect = function() {

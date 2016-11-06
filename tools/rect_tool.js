@@ -26,6 +26,7 @@ RectTool.prototype.onMouseLeftDown = function(point) {
 	else {
 		this.document.addGeometry(new Rect(this.firstPoint, point));
 		this.firstPoint = null;
+		this.document.clearEditionGeometries();
 	}
 }
 

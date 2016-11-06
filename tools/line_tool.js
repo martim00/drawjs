@@ -39,6 +39,7 @@ LineTool.prototype.onMouseRightDown = function(point) {
 		return false;
 
 	this.document.clearEditionGeometries();
+	this.currentGeometry = null;
 	this.lastPoint = null;
 	return true;
 }

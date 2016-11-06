@@ -22,8 +22,9 @@ Document.prototype.removeGeometry = function(geometry) {
 	removeFromArray(this.geometries, geometry);
 }
 
-Document.prototype.addEditionGeometry = function(geometry) {
-	this.clearEditionGeometries();
+Document.prototype.addEditionGeometry = function(geometry, keep) {
+	if (!keep)
+		this.clearEditionGeometries();
 	this.editionGeometries.push(geometry);
 	this.invalidate.notify();
 }

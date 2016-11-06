@@ -16,27 +16,34 @@ SelectionTool.prototype.onMouseDrag = function(args) {
 
 	var geometry = this.document.findGeometryAt(args.beginPoint);
 	if (geometry) {
+		console.log("mouse dragged");
 		this.selectedGeo = geometry;
 
 		var movementVector = args.endPoint.minus(args.beginPoint);
 		this.movedGeo = geometry.moveBy(movementVector);
-		this.document.addEditionGeometry(this.movedGeo);
+		this.document.clearEditionGeometries();
+		this.document.addEditionGeometry(this.movedGeo, true);
+		this.document.addEditionGeometry(this.movedGeo.getBoundingRect(), true);
 	}
 
 }
 
 SelectionTool.prototype.onMouseMove = function(args) {
-	console.log(args.point);
+	console.log("mouse moved");
 }
 
 SelectionTool.prototype.onMouseLeftDown = function(point) {
+	console.log("mouse left down");
 	var geometry = this.document.findGeometryAt(point);
 	if (!geometry) {
 		this.clearSelection();
 		return;
 	}
 
-	console.log("found....");
+	this.selectGeometry(geometry);
+}
+
+SelectionTool.prototype.selectGeometry = function(geometry) {
 	this.selectedGeo = geometry;
 	var editionRect = geometry.getBoundingRect();
 	this.document.addEditionGeometry(editionRect);
@@ -55,8 +62,10 @@ SelectionTool.prototype.onMouseRightDown = function(point) {
 SelectionTool.prototype.onMouseRelease = function(point) {
 	console.log("mouse release " + point.x + ", " + point.y);
 	if (this.movedGeo) {
+		this.document.clearEditionGeometries();
 		this.document.removeGeometry(this.selectedGeo);
 		this.document.addGeometry(this.movedGeo);
+		this.selectGeometry(this.movedGeo);
 		this.movedGeo = null;
 	}
 }
