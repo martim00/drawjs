@@ -4,7 +4,7 @@ RotateTool = function(document) {
 	this.rotatedGeo = null;
 }
 
-RotateTool.inherits(SelectionTool);
+RotateTool.inherits(SelectTool);
 
 RotateTool.prototype.onMouseDrag = function(args) {
 	var angle = this.selectedGeo.getCenter().getAngle(args.endPoint);

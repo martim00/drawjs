@@ -5,12 +5,13 @@ Editor = function() {
 	this.gestureRecognizer = new GestureRecognizer();
 
 	this.canvas = document.querySelector("canvas");
+  this.render = new Render(this.document, this.canvas);
 
 	this.toolManager = new ToolManager();
 	this.toolManager.addTool("LineTool", function() { return new LineTool(this.document); }.bind(this));
 	this.toolManager.addTool("RectTool", function() { return new RectTool(this.document); }.bind(this));
 	this.toolManager.addTool("RotateTool", function() { return new RotateTool(this.document); }.bind(this));
-	this.toolManager.addTool("SelectionTool", function() { return new SelectionTool(this.document); }.bind(this), true);
+	this.toolManager.addTool("SelectTool", function() { return new SelectTool(this.document); }.bind(this), true);
 
 	this.bindEvents();
 }
@@ -37,10 +38,10 @@ Editor.prototype.bindEvents = function() {
 	this.gestureRecognizer.onMouseDblClick.addListener(this.toolManager.onMouseDblClick.bind(this.toolManager));
 
 
-	this.document.invalidate.addListener(function() {
-		this.invalidate();
+	// this.document.invalidate.addListener(function() {
+	// 	this.invalidate();
 
-	}.bind(this));
+	// }.bind(this));
 
 	this.canvas.addEventListener('mousemove', function(evt) {
         var mousePos = this.getMousePos(evt);

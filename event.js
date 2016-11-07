@@ -7,6 +7,10 @@ Event.prototype.addListener = function(listener) {
 	this.listeners.push(listener);
 }
 
+Event.prototype.getListenerCount = function(listener) {
+	return this.listeners.length;
+}
+
 Event.prototype.removeListener = function(listener) {
 	var index = this.listeners.indexOf(listener);
 	if (index == -1) 

@@ -3,6 +3,8 @@ Polygon = function() {
 	this.points = [];
 }
 
+Polygon.inherits(Geometry);
+
 Polygon.prototype.containsPoint = function(point) {
 	pointInsidePolygon(point, this.points.map());
 }

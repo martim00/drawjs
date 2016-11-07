@@ -5,6 +5,8 @@ Line = function(p1, p2, strokeStyle) {
 	this.strokeStyle = strokeStyle ? strokeStyle : 'black';
 }
 
+Line.inherits(Geometry);
+
 Line.prototype.distance = function() {
 	return new Point(this.p1.x, this.p1.y).distance(this.p2);
 }
@@ -41,3 +43,4 @@ Line.prototype.getBoundingRect = function() {
 Line.prototype.moveBy = function(vector) {
 	return new Line(this.p1.sum(vector), this.p2.sum(vector), this.strokeStyle);
 }
+

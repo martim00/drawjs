@@ -7,6 +7,8 @@ Rect = function(p1, p2, strokeStyle) {
 	this.strokeStyle = strokeStyle ? strokeStyle : 'black';
 }
 
+Rect.inherits(Geometry);
+
 Rect.prototype.containsPoint = function(point) {
 	return pointInsidePolygon(point, this.getPoints());
 }

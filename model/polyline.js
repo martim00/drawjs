@@ -3,8 +3,18 @@ Polyline = function() {
 	this.lines = [];
 }
 
+Polyline.inherits(Geometry);
+
+Polyline.prototype.isClosed = function() {
+	return this.getLastPoint() == this.getFirstPoint();
+}
+
 Polyline.prototype.addLine = function(line) {
 	this.lines.push(line);
+}
+
+Polyline.prototype.getLineCount = function() {
+	return this.lines.length;
 }
 
 Polyline.prototype.getPoints = function() {

@@ -5,6 +5,7 @@ LineTool = function(document) {
 	this.lastPoint = null;
 	this.currentGeometry = null;
 }
+
 LineTool.inherits(Tool);
 
 LineTool.prototype.onMouseDrag = function(args) {
@@ -14,29 +15,28 @@ LineTool.prototype.onMouseMove = function(args) {
 	if (!this.lastPoint)
 		return;
 
-	this.document.addEditionGeometry(new Line(this.lastPoint, args.point));
+	this.document.addEditionGeometry(this.currentGeometry, false);
+	this.document.addEditionGeometry(new Line(this.lastPoint, args.point, 'red'), true);
 }
 
 LineTool.prototype.onMouseLeftDown = function(point) {
-	console.log("mouse down " + point.x + ", " + point.y);
 	if (!this.currentGeometry) {
 		this.currentGeometry = new Polyline();
-		this.document.addGeometry(this.currentGeometry);
 	}
 
-	if (!this.lastPoint) {
-		this.lastPoint = point;
-	}
-	else {
+	if (this.lastPoint)
 		this.currentGeometry.addLine(new Line(this.lastPoint, point));
-		///this.document.addGeometry(new Line(this.lastPoint, point));
-		this.lastPoint = point;
-	}
+	
+	this.lastPoint = point;
 }
 
 LineTool.prototype.onMouseRightDown = function(point) {
-	if (!this.lastPoint)
+
+	if (!this.currentGeometry)
 		return false;
+
+	if (this.currentGeometry.getLineCount() > 0) 
+		this.document.addGeometry(this.currentGeometry);
 
 	this.document.clearEditionGeometries();
 	this.currentGeometry = null;
@@ -49,8 +49,9 @@ LineTool.prototype.onMouseRelease = function(point) {
 }
 
 LineTool.prototype.onMouseDblClick = function(point) {
-	if (this.currentGeometry) {
+	if (this.currentGeometry && this.currentGeometry.getLineCount() > 1) {
 		this.currentGeometry.closePolygon();
+		this.document.addGeometry(this.currentGeometry);
 		this.lastPoint = null;
 		this.currentGeometry = null;
 		this.document.clearEditionGeometries();

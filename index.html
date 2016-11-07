@@ -8,19 +8,21 @@
 	<script type="text/javascript" src="util/inherits.js"></script>
 	<script type="text/javascript" src="util/util.js"></script>
 	<script type="text/javascript" src="gesture_recognizer.js"></script>
+	<script type="text/javascript" src="model/geometry.js"></script>
 	<script type="text/javascript" src="model/point.js"></script>
 	<script type="text/javascript" src="model/line.js"></script>
 	<script type="text/javascript" src="model/polyline.js"></script>
 	<script type="text/javascript" src="model/polygon.js"></script>
 	<script type="text/javascript" src="model/rect.js"></script>
 	<script type="text/javascript" src="document.js"></script>
+	<script type="text/javascript" src="render.js"></script>
 	<script type="text/javascript" src="editors/editor_factory.js"></script>
 	<script type="text/javascript" src="editors/rect_editor.js"></script>
 	<script type="text/javascript" src="tool_manager.js"></script>
 	<script type="text/javascript" src="tools/tool.js"></script>
 	<script type="text/javascript" src="tools/rect_tool.js"></script>
 	<script type="text/javascript" src="tools/line_tool.js"></script>
-	<script type="text/javascript" src="tools/selection_tool.js"></script>
+	<script type="text/javascript" src="tools/select_tool.js"></script>
 	<script type="text/javascript" src="tools/rotate_tool.js"></script>
 	<script type="text/javascript" src="editor.js"></script>
 
@@ -47,7 +49,7 @@
 
 			$("#selection-tool").click(function() {
 				console.log("activating selection tool");
-				editor.activateTool("SelectionTool");
+				editor.activateTool("SelectTool");
 			});
 
 			$("#line-tool").click(function() {

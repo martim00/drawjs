@@ -1,19 +1,18 @@
-SelectionTool = function(document, editorsFactory) {
+SelectTool = function(document) {
 	this.document = document;
 	this.movedGeo = null;
 	this.selectedGeo = null;
-	this.editorsFactory = editorsFactory;
 }
 
-SelectionTool.inherits(Tool);
+SelectTool.inherits(Tool);
 
-SelectionTool.prototype.activate = function() {
+SelectTool.prototype.activate = function() {
 }
 
-SelectionTool.prototype.deactivate = function() {
+SelectTool.prototype.deactivate = function() {
 }
 
-SelectionTool.prototype.onMouseDrag = function(args) {
+SelectTool.prototype.onMouseDrag = function(args) {
 
 	var geometry = this.document.findGeometryAt(args.beginPoint);
 	if (geometry) {
@@ -29,11 +28,11 @@ SelectionTool.prototype.onMouseDrag = function(args) {
 
 }
 
-SelectionTool.prototype.onMouseMove = function(args) {
+SelectTool.prototype.onMouseMove = function(args) {
 	console.log("mouse moved");
 }
 
-SelectionTool.prototype.onMouseLeftDown = function(point) {
+SelectTool.prototype.onMouseLeftDown = function(point) {
 	console.log("mouse left down");
 	var geometry = this.document.findGeometryAt(point);
 	if (!geometry) {
@@ -44,27 +43,29 @@ SelectionTool.prototype.onMouseLeftDown = function(point) {
 	this.selectGeometry(geometry);
 }
 
-SelectionTool.prototype.selectGeometry = function(geometry) {
+SelectTool.prototype.selectGeometry = function(geometry) {
 	this.selectedGeo = geometry;
 
 	//var editor = this.editorsFactory.build(this.selectedGeo);
 	//this.document.addEditionGeometry(editor.getEditionGeometry());
 
+	this.document.selectGeometry(geometry);
+
 	var editionRect = geometry.getBoundingRect();
 	this.document.addEditionGeometry(editionRect);
 }
 
-SelectionTool.prototype.clearSelection = function() {
+SelectTool.prototype.clearSelection = function() {
 	this.selectedGeo = null;
 	this.document.clearEditionGeometries();
 }
 
-SelectionTool.prototype.onMouseRightDown = function(point) {
+SelectTool.prototype.onMouseRightDown = function(point) {
 	console.log("mouse right down " + point.x + ", " + point.y);
 	this.clearSelection();
 }
 
-SelectionTool.prototype.onMouseRelease = function(point) {
+SelectTool.prototype.onMouseRelease = function(point) {
 	console.log("mouse release " + point.x + ", " + point.y);
 	if (this.movedGeo) {
 		this.document.clearEditionGeometries();
