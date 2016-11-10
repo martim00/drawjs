@@ -33,8 +33,8 @@ Rect.prototype.moveBy = function(vector) {
 }
 
 Rect.prototype.getCenter = function() {
-	var x = this.p1.x + this.p2.x / 2;
-	var y = this.p1.y + this.p2.y / 2;
+	var x = (this.p1.x + this.p2.x) / 2;
+	var y = (this.p1.y + this.p2.y) / 2;
 
 	return new Point(x, y);
 }
@@ -45,6 +45,28 @@ Rect.prototype.rotateBy = function(angle) {
 	// 	this.p1.rotate(this.getCenter(), angle),
 	// 	this.p2.rotate(this.getCenter(), angle)
 	// );
+}
+
+Rect.prototype.drawSelection = function(context) {
+	context.fillStyle = "#ff2626"; // Red color
+
+    context.beginPath();
+    var center = this.getCenter();
+    console.log(center.x);
+    console.log(center.y);
+    context.rect(center.x - 5, center.y - 5, 10, 10);
+    context.closePath();
+
+    var rect = this.getBoundingRect().getPoints();
+    context.rect(rect[0].x - 5, rect[0].y - 5, 10, 10);
+    context.closePath();
+    context.rect(rect[1].x - 5, rect[1].y - 5, 10, 10);
+    context.closePath();
+    context.rect(rect[2].x - 5, rect[2].y - 5, 10, 10);
+    context.closePath();
+    context.rect(rect[3].x - 5, rect[3].y - 5, 10, 10);
+    context.closePath();
+    context.fill();
 }
 
 

@@ -18,6 +18,7 @@ SelectTool.prototype.onMouseDrag = function(args) {
 	if (geometry) {
 		console.log("mouse dragged");
 		this.selectedGeo = geometry;
+		this.document.clearSelection();
 
 		var movementVector = args.endPoint.minus(args.beginPoint);
 		this.movedGeo = geometry.moveBy(movementVector);
@@ -58,6 +59,7 @@ SelectTool.prototype.selectGeometry = function(geometry) {
 SelectTool.prototype.clearSelection = function() {
 	this.selectedGeo = null;
 	this.document.clearEditionGeometries();
+	this.document.clearSelection();
 }
 
 SelectTool.prototype.onMouseRightDown = function(point) {

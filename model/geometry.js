@@ -23,3 +23,20 @@ Geometry.prototype.draw = function(context) {
   	}
   	context.stroke();
 }
+
+Geometry.prototype.drawSelection = function(context) {
+	context.fillStyle = "#ff2626"; // Red color
+
+    context.beginPath();
+    var rect = this.getBoundingRect().getPoints();
+    context.rect(rect[0].x - 5, rect[0].y - 5, 10, 10);
+    context.closePath();
+    context.rect(rect[1].x - 5, rect[1].y - 5, 10, 10);
+    context.closePath();
+    context.rect(rect[2].x - 5, rect[2].y - 5, 10, 10);
+    context.closePath();
+    context.rect(rect[3].x - 5, rect[3].y - 5, 10, 10);
+    context.closePath();
+    context.fill();
+}
+

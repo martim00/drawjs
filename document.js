@@ -43,6 +43,15 @@ Document.prototype.getSelectedGeometry = function(geometry) {
 	return this.selectedGeometry;
 }
 
+Document.prototype.hasSelection = function(geometry) {
+	return this.selectedGeometry != null;
+}
+
+Document.prototype.clearSelection = function() {
+	this.selectedGeometry = null;
+	this.invalidateDocument();
+}
+
 Document.prototype.addEditionGeometry = function(geometry, keep) {
 	if (!keep)
 		this.editionGeometries.length = 0;

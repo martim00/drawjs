@@ -17,6 +17,9 @@ Render.prototype.renderDocument = function() {
   	context.strokeStyle = "red";
 
   	this.drawGeometries(this.document.getEditionGeometries());
+
+  	if (this.document.hasSelection()) 
+  		this.document.getSelectedGeometry().drawSelection(context);
 }
 
 
@@ -30,19 +33,4 @@ Render.prototype.drawGeometries = function(geometries) {
 
 }
 
-  		// if (geometry.strokeStyle)
-  		// 	context.strokeStyle = geometry.getStrokeStyle();
-
-	  	// context.beginPath();
-  		// for (var i = 0; i < geometry.getPoints().length; i++) {
-
-  		// 	var point = geometry.getPoints()[i];
-
-  		// 	if (i == 0) {
-  		// 		context.moveTo(point.x, point.y);
-  		// 	}
-  		// 	else {
-  		// 		context.lineTo(point.x, point.y);
-  		// 	}
-  		// }
-  		// context.stroke();
+  

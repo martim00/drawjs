@@ -42,6 +42,7 @@ describe("DocumentSpec", function() {
 	  	});
 
 	  	it("should be selected", function() {
+	    	expect(this.document.hasSelection()).toEqual(true);
 	    	expect(this.document.getSelectedGeometry()).toEqual(this.geometry);
 	  	});
 
