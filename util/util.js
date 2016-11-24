@@ -8,7 +8,8 @@ function removeFromArray(array, element) {
 }
 
 function floatEquals(f1, f2) {
-	return f1 - f2 < 0.1;
+	var diff = f1 - f2;
+	return diff >= 0 && diff < 0.1;
 }
 
 

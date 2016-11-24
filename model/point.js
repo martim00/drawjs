@@ -16,8 +16,16 @@ Point.prototype.sum = function(point) {
 	return new Point(this.x + point.x, this.y + point.y);
 }
 
+Point.prototype.sum2 = function(delta) {
+	return this.sum(new Point(delta, delta));
+}
+
 Point.prototype.minus = function(point) {
 	return new Point(this.x - point.x, this.y - point.y);
+}
+
+Point.prototype.minus2 = function(delta) {
+	return this.minus(new Point(delta, delta));
 }
 
 Point.prototype.getAngle = function(point) {

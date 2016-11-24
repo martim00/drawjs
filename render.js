@@ -18,8 +18,8 @@ Render.prototype.renderDocument = function() {
 
   	this.drawGeometries(this.document.getEditionGeometries());
 
-  	if (this.document.hasSelection()) 
-  		this.document.getSelectedGeometry().drawSelection(context);
+  	/*if (this.document.hasSelection()) 
+  		this.document.getSelectedGeometry().drawSelection(context);*/
 }
 
 

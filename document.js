@@ -54,10 +54,20 @@ Document.prototype.clearSelection = function() {
 
 Document.prototype.addEditionGeometry = function(geometry, keep) {
 	if (!keep)
+
 		this.editionGeometries.length = 0;
 	this.editionGeometries.push(geometry);
 	this.invalidateDocument();
 }
+
+Document.prototype.addEditionGeometries = function(geometries, keep) {
+	if (!keep)
+		this.editionGeometries.length = 0;
+
+	this.editionGeometries = this.editionGeometries.concat(geometries);
+	this.invalidateDocument();
+}
+
 
 Document.prototype.clearEditionGeometries = function() {
 	this.editionGeometries.length = 0;

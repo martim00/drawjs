@@ -3,6 +3,9 @@
 <head>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://use.fontawesome.com/68e3fde53b.js"></script>
+
+	<script src="https://cdn.rawgit.com/jwarby/jquery-awesome-cursor/master/dist/jquery.awesome-cursor.min.js"></script>
 
 	<script type="text/javascript" src="event.js"></script>
 	<script type="text/javascript" src="util/inherits.js"></script>
@@ -16,8 +19,10 @@
 	<script type="text/javascript" src="model/rect.js"></script>
 	<script type="text/javascript" src="document.js"></script>
 	<script type="text/javascript" src="render.js"></script>
+	<script type="text/javascript" src="services/cursor_service.js"></script>
 	<script type="text/javascript" src="editors/editor_factory.js"></script>
 	<script type="text/javascript" src="editors/rect_editor.js"></script>
+	<script type="text/javascript" src="editors/selection_editor.js"></script>
 	<script type="text/javascript" src="tool_manager.js"></script>
 	<script type="text/javascript" src="tools/tool.js"></script>
 	<script type="text/javascript" src="tools/rect_tool.js"></script>
@@ -34,10 +39,11 @@
 		<span><a href="#" id="selection-tool"><img src="icons/stock_draw_selection.png"></a></span>
 		<span><a href="#" id="line-tool"><img src="icons/stock_draw_polygon.png"></a></span>
 		<span><a href="#" id="rect-tool"><img width="24" height="24" src="icons/vector-path-square.svg"></a></span>
-		<span><a href="#" id="rotate-tool">Rotate</a></span>
 		<span><a href="#" id="bezier-tool"><img src="icons/stock_draw_curve.png"></a></span>
 	</div>
-	<canvas width="600" height="600"></canvas>
+	<div >
+		<canvas style="border:1px solid black" width="800" height="600"></canvas>
+	</div>
  
 	<script>
 		(function() {
@@ -60,11 +66,6 @@
 			$("#rect-tool").click(function() {
 				console.log("activating rect tool");
 				editor.activateTool("RectTool");
-			});
-
-			$("#rotate-tool").click(function() {
-				console.log("activating rotate tool");
-				editor.activateTool("RotateTool");
 			});
 
 			$("#bezier-tool").click(function() {

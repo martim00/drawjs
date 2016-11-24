@@ -1,8 +1,9 @@
 
-Line = function(p1, p2, strokeStyle) {
+Line = function(p1, p2, strokeStyle, fillStyle) {
 	this.p1 = p1;
 	this.p2 = p2;
-	this.strokeStyle = strokeStyle ? strokeStyle : 'black';
+	Geometry.call(this, strokeStyle, fillStyle, 0);
+	// this.strokeStyle = strokeStyle ? strokeStyle : 'black';
 }
 
 Line.inherits(Geometry);

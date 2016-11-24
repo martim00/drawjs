@@ -7,11 +7,13 @@ Editor = function() {
 	this.canvas = document.querySelector("canvas");
   this.render = new Render(this.document, this.canvas);
 
+  this.cursorService = new CursorService();
+
 	this.toolManager = new ToolManager();
 	this.toolManager.addTool("LineTool", function() { return new LineTool(this.document); }.bind(this));
 	this.toolManager.addTool("RectTool", function() { return new RectTool(this.document); }.bind(this));
 	this.toolManager.addTool("RotateTool", function() { return new RotateTool(this.document); }.bind(this));
-	this.toolManager.addTool("SelectTool", function() { return new SelectTool(this.document); }.bind(this), true);
+	this.toolManager.addTool("SelectTool", function() { return new SelectTool(this.document, this.cursorService); }.bind(this), true);
 
 	this.bindEvents();
 }

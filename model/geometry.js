@@ -1,13 +1,31 @@
 
-Geometry = function() {
+Geometry = function(strokeStyle, fillStyle, angle) {
+   this.strokeStyle = strokeStyle ? strokeStyle : 'black';
+   //this.fillStyle = fillStyle ? fillStyle : 'rgba(255, 255, 255, 0.0)';
+   this.fillStyle = fillStyle ? fillStyle : undefined;
+   this.angle = angle ? angle : 0;
+}
 
+Geometry.prototype.getAngle = function() {
+   return this.angle;
+}
+
+Geometry.prototype.getStrokeStyle = function() {
+   return this.strokeStyle;
+}
+
+Geometry.prototype.getFillStyle = function() {
+   return this.fillStyle;
 }
 
 Geometry.prototype.draw = function(context) {
   	// var context = canvas.getContext("2d");
 
 	if (this.strokeStyle)
-  		context.strokeStyle = this.getStrokeStyle();
+      context.strokeStyle = this.getStrokeStyle();
+
+   if (this.fillStyle)
+      context.fillStyle = this.getFillStyle();
 
 	context.beginPath();
   	for (var i = 0; i < this.getPoints().length; i++) {
@@ -22,21 +40,7 @@ Geometry.prototype.draw = function(context) {
   		}
   	}
   	context.stroke();
+
+   if (this.fillStyle)
+      context.fill();
 }
-
-Geometry.prototype.drawSelection = function(context) {
-	context.fillStyle = "#ff2626"; // Red color
-
-    context.beginPath();
-    var rect = this.getBoundingRect().getPoints();
-    context.rect(rect[0].x - 5, rect[0].y - 5, 10, 10);
-    context.closePath();
-    context.rect(rect[1].x - 5, rect[1].y - 5, 10, 10);
-    context.closePath();
-    context.rect(rect[2].x - 5, rect[2].y - 5, 10, 10);
-    context.closePath();
-    context.rect(rect[3].x - 5, rect[3].y - 5, 10, 10);
-    context.closePath();
-    context.fill();
-}
-

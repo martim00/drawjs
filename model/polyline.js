@@ -60,7 +60,7 @@ Polyline.prototype.getBoundingRect = function() {
 			rightY = lineBoundRect.p2.y;
 	}
 
-	return new Rect(new Point(leftX, leftY), new Point(rightX, rightY), 'blue');
+	return new Rect(new Point(leftX - 5, leftY - 5), new Point(rightX + 5, rightY + 5), 'blue');
 }
 
 Polyline.prototype.moveBy = function(vector) {
