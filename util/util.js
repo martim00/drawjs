@@ -8,10 +8,53 @@ function removeFromArray(array, element) {
 }
 
 function floatEquals(f1, f2) {
-	var diff = f1 - f2;
+	var diff = Math.abs(f1 - f2);
 	return diff >= 0 && diff < 0.1;
 }
 
+function getBoundingRect(points) {
+	var leftX = 999999; // ugly
+   	var leftY = 999999;
+   	var rightX = 0;
+   	var rightY = 0;
+
+   	for (var i = 0; i < points.length; i++) {
+      	var point = points[i];
+
+      	if (point.x < leftX)
+        	leftX = point.x;
+
+      	if (point.y < leftY)
+        	leftY = point.y;
+
+      	if (point.x > rightX)
+        	rightX = point.x;
+
+      	if (point.y > rightY)
+        	rightY = point.y
+   	}
+
+   return [new Point(leftX, leftY), new Point(rightX, leftY), new Point(rightX, rightY), new Point(leftX, rightY)];
+}
+
+function movePoints(points, vector) {
+	return points.map(function(point, index, arr) {
+		return point.sum(vector);
+	});
+}
+
+function rotatePoints(points, center, angle) {
+	return points.map(function(point, index, arr) {
+		return point.rotate(center, angle);
+	});
+}
+
+function getCenterPoint(points) {
+	var bounds = getBoundingRect();
+	var topLeft = bounds[0];
+	var bottomRight = bounds[1];
+	return new Point((topLeft.x + bottomRight.x) / 2, (topLeft.y + bottomRight.y) / 2);
+}
 
 function pointInsidePolygon(point, vs) {
 	// https://github.com/substack/point-in-polygon

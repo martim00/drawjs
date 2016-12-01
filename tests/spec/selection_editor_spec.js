@@ -1,16 +1,17 @@
 describe("SelectionEditorSpec", function() {
 
   	beforeEach(function() {
-    	this.rect = new Rect(new Point(0, 0), new Point(100, 100));
+    	this.rect = new Rect(new Point(0, 0), new Point(100, 0), new Point(100, 100), new Point(0, 100));
     	this.editor = new SelectionEditor(this.rect);
   	});
 
   	it("should have edition points", function() {
-  		expect(this.editor.getEditionPoints()[0]).toEqual(new Point(-5, -5));
-  		expect(this.editor.getEditionPoints()[1]).toEqual(new Point(105, -5));
-  		expect(this.editor.getEditionPoints()[2]).toEqual(new Point(105, 105));
-  		expect(this.editor.getEditionPoints()[3]).toEqual(new Point(-5, 105));
-  		expect(this.editor.getEditionPoints()[4]).toEqual(new Point(50, -45));
+
+  		comparePoints(this.editor.getEditionPoints()[0], new Point(0, 0));
+  		comparePoints(this.editor.getEditionPoints()[1], new Point(100, 0));
+  		comparePoints(this.editor.getEditionPoints()[2], new Point(100, 100));
+  		comparePoints(this.editor.getEditionPoints()[3], new Point(0, 100));
+  		comparePoints(this.editor.getEditionPoints()[4], new Point(50, -40));
   	});
 
 });

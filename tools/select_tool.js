@@ -51,7 +51,7 @@ SelectTool.prototype.onMouseDrag = function(args) {
 
 			this.document.clearEditionGeometries();
 			this.document.addEditionGeometry(this.movedGeo, true);
-			this.document.addEditionGeometry(this.movedGeo.getBoundingRect(), true);
+			this.document.addEditionGeometry(Rect.build(this.movedGeo.getBoundingRect()), true);
 			return true;
 
 		} else { // moving
@@ -64,7 +64,7 @@ SelectTool.prototype.onMouseDrag = function(args) {
 
 			this.document.clearEditionGeometries();
 			this.document.addEditionGeometry(this.movedGeo, true);
-			this.document.addEditionGeometry(this.movedGeo.getBoundingRect(), true);
+			this.document.addEditionGeometry(Rect.build(this.movedGeo.getBoundingRect()), true);
 		}
 	}
 }

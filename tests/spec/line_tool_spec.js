@@ -48,7 +48,7 @@ describe("LineToolSpec", function() {
 	  	it("should closes polygon on double click", function() {
   			expect(this.document.getGeometryCount()).toEqual(1);
   			var geometry = this.document.getGeometryAt(0);
-  			expect(geometry.getPoints().length).toEqual(6);
+  			expect(geometry.getPoints().length).toEqual(5);
   			expect(geometry.isClosed()).toEqual(true);
 	  	});
 

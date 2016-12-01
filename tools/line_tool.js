@@ -16,7 +16,7 @@ LineTool.prototype.onMouseMove = function(args) {
 		return;
 
 	this.document.addEditionGeometry(this.currentGeometry, false);
-	this.document.addEditionGeometry(new Line(this.lastPoint, args.point, 'red'), true);
+	this.document.addEditionGeometry(new Line(this.lastPoint, args.point, 'red', null), true);
 }
 
 LineTool.prototype.onMouseLeftDown = function(point) {
@@ -35,7 +35,7 @@ LineTool.prototype.onMouseRightDown = function(point) {
 	if (!this.currentGeometry)
 		return false;
 
-	if (this.currentGeometry.getLineCount() > 0) 
+	if (this.currentGeometry.getPointsCount() > 1) 
 		this.document.addGeometry(this.currentGeometry);
 
 	this.document.clearEditionGeometries();
@@ -49,7 +49,7 @@ LineTool.prototype.onMouseRelease = function(point) {
 }
 
 LineTool.prototype.onMouseDblClick = function(point) {
-	if (this.currentGeometry && this.currentGeometry.getLineCount() > 1) {
+	if (this.currentGeometry && this.currentGeometry.getPointsCount() > 1) {
 		this.currentGeometry.closePolygon();
 		this.document.addGeometry(this.currentGeometry);
 		this.lastPoint = null;

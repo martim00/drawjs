@@ -4,7 +4,7 @@ Point = function(x, y) {
 	this.y = y;
 }
 
-Point.inherits(Geometry);
+// Point.inherits(Geometry);
 
 Point.prototype.distance = function(point) {
 	var dx = this.x - point.x;

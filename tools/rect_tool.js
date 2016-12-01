@@ -15,7 +15,7 @@ RectTool.prototype.onMouseMove = function(args) {
 		return;
 
 	console.log("mouse moving " + args.point.x + ", " + args.point.y);
-	this.document.addEditionGeometry(new Rect(this.firstPoint, args.point));
+	this.document.addEditionGeometry(Rect.build2(this.firstPoint, args.point));
 }
 
 RectTool.prototype.onMouseLeftDown = function(point) {
@@ -24,7 +24,7 @@ RectTool.prototype.onMouseLeftDown = function(point) {
 		this.firstPoint = point;
 	}
 	else {
-		this.document.addGeometry(new Rect(this.firstPoint, point));
+		this.document.addGeometry(Rect.build2(this.firstPoint, point));
 		this.firstPoint = null;
 		this.document.clearEditionGeometries();
 	}

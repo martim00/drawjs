@@ -16,39 +16,55 @@ SelectionEditor = function(targetGeo) {
 *	angle point 
 */
 SelectionEditor.prototype.getEditionPoints = function() {
-	var boundingRect = this.targetGeo.getBoundingRect();
-	var points = boundingRect.getPoints();
-	points.splice(4, 1); // removing last point (equals first)
+	var boundingPoints = this.targetGeo.getBoundingRect();
+	// var points = boundingRect.getPoints();
+	boundingPoints.splice(4, 1); // removing last point (equals first)
 
-	var center = boundingRect.getCenter();
-	var originalP1 = points[0].rotate(center, -boundingRect.getAngle());
+	var center = this.targetGeo.getCenter();
+	var originalP1 = boundingPoints[0].rotate(center, -this.targetGeo.getAngle());
 
-	var anglePoint = new Point(center.x, originalP1.y - 40).rotate(center, boundingRect.getAngle());
-	points.push(anglePoint);
+	var anglePoint = new Point(center.x, originalP1.y - 40).rotate(center, this.targetGeo.getAngle());
+	boundingPoints.push(anglePoint);
 
-	return points;
+	return boundingPoints;
+}
+
+SelectionEditor.prototype.createRectFromPoint = function(point, angle) {
+	var topLeft = point.minus2(5).rotate(point, angle);
+	var topRight = point.sum(new Point(5, -5)).rotate(point, angle);
+	var bottomRight = point.sum2(5).rotate(point, angle);
+	var bottomLeft = point.sum(new Point(-5, 5)).rotate(point, angle);
+	return new Rect(topLeft, topRight, bottomRight, bottomLeft, 'black', 'red');
 }
 
 SelectionEditor.prototype.getGeometries = function() {
 	var geometries = [];
 
+	var angle = this.targetGeo.getAngle();
+
 	var rect = this.targetGeo.getBoundingRect();
-	geometries = geometries.concat(rect);
+	geometries = geometries.concat(new Rect(rect[0], rect[1], rect[2], rect[3], 'black', null));
 
 	var editionPoints = this.getEditionPoints();
 
-	geometries.push(new Rect(editionPoints[0], editionPoints[0], 'black', 'red'));
-	geometries.push(new Rect(editionPoints[1], editionPoints[1], 'black', 'red'));
-	geometries.push(new Rect(editionPoints[2], editionPoints[2], 'black', 'red'));
-	geometries.push(new Rect(editionPoints[3], editionPoints[3], 'black', 'red'));
 
-	var center = rect.getCenter();
-	var originalP1 = editionPoints[0].rotate(center, -rect.getAngle());
+	geometries.push(this.createRectFromPoint(editionPoints[0], angle));
+	geometries.push(this.createRectFromPoint(editionPoints[1], angle));
+	geometries.push(this.createRectFromPoint(editionPoints[2], angle));
+	geometries.push(this.createRectFromPoint(editionPoints[3], angle));
+	// geometries.push(new Rect(editionPoints[0], editionPoints[0], 'black', 'red'));
+	// geometries.push(new Rect(editionPoints[1], editionPoints[1], 'black', 'red'));
+	// geometries.push(new Rect(editionPoints[2], editionPoints[2], 'black', 'red'));
+	// geometries.push(new Rect(editionPoints[3], editionPoints[3], 'black', 'red'));
+
+	var center = this.targetGeo.getCenter();
+	console.log("CENTER: " + center.x + ", " + center.y);
+	var originalP1 = editionPoints[0].rotate(center, -angle);
 
 	var anglePoint = editionPoints[4]
 
-	geometries.push(new Line(new Point(center.x, originalP1.y).rotate(center, rect.getAngle()), anglePoint));
-	geometries.push(new Rect(anglePoint.minus2(5), anglePoint.sum2(5), 'black', 'red'));
+	geometries.push(new Line(new Point(center.x, originalP1.y).rotate(center, angle), anglePoint));
+	geometries.push(this.createRectFromPoint(anglePoint, angle));
 	return geometries;
 }
 
